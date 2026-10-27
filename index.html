@@ -101,9 +101,9 @@
   const O = { x: 297.64, y: 420.94 };      // centro de la rueda en el SVG original
   const R_SOL = 283.46, R_CENTRO = 62.36;
   const R0 = 85;          // radio donde arranca cada línea de texto
-  const DERECHA = 274;    // radio donde terminan precios y presentaciones
-  const PIVOTE = 190;     // radio alrededor del cual crece el postre activo
-  const CRECE = 0.10;     // cuánto crece el postre activo (10 %)
+  const DERECHA = 268;    // radio donde terminan precios y presentaciones (deja margen al borde del círculo, también con el postre ampliado)
+  const PIVOTE = 205;     // radio alrededor del cual crece el postre activo
+  const CRECE = 0.08;     // cuánto crece el postre activo (8 %)
   const PASO_ANG = 36;    // grados entre un postre y el siguiente
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -231,9 +231,9 @@
   function medir() {
     W = innerWidth; H = innerHeight;
     const m = Math.max(14, Math.min(W, H) * 0.035);
-    const anchoTexto = 282.4 - 74.5;                 // tramo que ocupa el texto del postre activo
+    const anchoTexto = 283.46 - 75.4;                // tramo que ocupa el postre activo, de borde de círculo a borde de círculo
     const s = Math.min((W - 2 * m) / anchoTexto, Math.max(H * 0.0029, 1.7));
-    const xc = Math.min(W / 2, W - m - 282.4 * s);   // el texto activo nunca se corta a la derecha
+    const xc = Math.min(W / 2, W - m - 283.46 * s);  // el borde del círculo nunca pasa del margen derecho
     const yc = H / 2;
     marco.setAttribute('transform', `translate(${f2(xc)} ${f2(yc)}) scale(${s.toFixed(4)}) translate(${-O.x} ${-O.y})`);
     document.body.classList.toggle('sin-dial', xc + 68 * s < 90);
