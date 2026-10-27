@@ -37,7 +37,8 @@
   .c{font-size:6.4px}
   .t{font-size:5.2px}
   .postre{cursor:pointer}
-  .anillo{fill:none;stroke:var(--tinta);stroke-width:.5;stroke-linecap:round}
+  .anillo{fill:none;stroke:var(--tinta);stroke-width:var(--grosor,.5);stroke-linecap:round}
+  #dial2 .anillo{stroke-linecap:butt}
 
   #cuenta,#pista{position:fixed;font:12px/1 "FluxischElse-Regular","Fluxisch Else","Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;font-variant-numeric:tabular-nums;pointer-events:none}
   #cuenta{left:max(16px,env(safe-area-inset-left));bottom:max(16px,env(safe-area-inset-bottom))}
@@ -144,7 +145,7 @@
 
   /* ---------- Referencias ---------- */
   const $ = id => document.getElementById(id);
-  const marco = $('marco'), dial = $('dial'), dial2 = $('dial2'), postres = $('postres');
+  const marco = $('marco'), dial = $('dial'), dial2 = $('dial2'), selloEl = $('sello'), postres = $('postres');
   const cuenta = $('cuenta'), pasos = $('pasos');
 
   /* ---------- Geometría polar ---------- */
@@ -241,6 +242,9 @@
     const yc = H / 2;
     marco.setAttribute('transform', `translate(${f2(xc)} ${f2(yc)}) scale(${s.toFixed(4)}) translate(${-O.x} ${-O.y})`);
     document.body.classList.toggle('sin-dial', xc + 68 * s < 90);
+    // El sello es una réplica reducida: su trazo se compensa para que los anillos tengan en pantalla el mismo grosor que los del dial.
+    const escSello = (selloEl.getBoundingClientRect().width || 56) / 140.1;
+    dial2.style.setProperty('--grosor', (0.5 * s / escSello).toFixed(3));
     paso = pasos.children[1] ? pasos.children[1].offsetTop - pasos.children[0].offsetTop : 1;
   }
 
