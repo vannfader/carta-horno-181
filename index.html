@@ -232,11 +232,15 @@
     W = innerWidth; H = innerHeight;
     const m = Math.max(14, Math.min(W, H) * 0.035);
     const anchoTexto = 283.46 - 75.4;                // tramo que ocupa el postre activo, de borde de círculo a borde de círculo
-    const s = Math.min((W - 2 * m) / anchoTexto, Math.max(H * 0.0029, 1.7));
+    let s = Math.min((W - 2 * m) / anchoTexto, Math.max(H * 0.0029, 1.7));
+    // En celular vertical el centro del dial quedaría fuera de pantalla: se achica un poco la rueda
+    // para que asome al menos ASOMA px del círculo crema con sus anillos en el borde izquierdo.
+    const ASOMA = 46;
+    if ((W - m - 283.46 * s) + 68 * s < ASOMA) s = (W - m - ASOMA) / (283.46 - 68);
     const xc = Math.min(W / 2, W - m - 283.46 * s);  // el borde del círculo nunca pasa del margen derecho
     const yc = H / 2;
     marco.setAttribute('transform', `translate(${f2(xc)} ${f2(yc)}) scale(${s.toFixed(4)}) translate(${-O.x} ${-O.y})`);
-    document.body.classList.toggle('sin-dial', xc + 68 * s < 90);
+    document.body.classList.toggle('sin-dial', xc + 68 * s < 24);
     paso = pasos.children[1] ? pasos.children[1].offsetTop - pasos.children[0].offsetTop : 1;
   }
 
