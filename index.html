@@ -47,7 +47,7 @@
   @keyframes rebote{50%{transform:translateY(3px)}}
 
   /* Sello con el 181: aparece solo cuando el dial queda fuera de pantalla (celular vertical). */
-  #sello{position:fixed;left:max(16px,env(safe-area-inset-left));top:max(14px,env(safe-area-inset-top));width:92px;height:92px;display:none;pointer-events:none}
+  #sello{position:fixed;left:max(16px,env(safe-area-inset-left));top:max(16px,env(safe-area-inset-top));width:56px;height:56px;display:none;pointer-events:none}
   body.sin-dial #sello{display:block}
 
   .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -71,7 +71,7 @@
     <g id="marco">
       <circle cx="297.64" cy="420.94" r="283.46" fill="#ffd86f"/>
       <path id="ventana" fill="#f7f1e6" opacity=".55"/>
-      <circle cx="297.64" cy="420.94" r="62.36" fill="#faf5ea"/>
+      <circle cx="297.64" cy="420.94" r="62.36" fill="#f7f1e6"/>
       <g id="dial"><use href="#anillos"/></g>
       <line class="anillo" x1="297.32" y1="439.16" x2="296.55" y2="483.3"/>
       <use href="#glifo" fill="#2e2e2e"/>
@@ -82,7 +82,7 @@
 </div>
 
 <svg id="sello" viewBox="227.59 350.89 140.1 140.1" aria-hidden="true">
-  <circle cx="297.64" cy="420.94" r="62.36" fill="#faf5ea"/>
+  <circle cx="297.64" cy="420.94" r="62.36" fill="#f7f1e6"/>
   <g id="dial2"><use href="#anillos"/></g>
   <use href="#glifo" fill="#2e2e2e"/>
 </svg>
@@ -240,7 +240,7 @@
     const xc = Math.min(W / 2, W - m - 283.46 * s);  // el borde del círculo nunca pasa del margen derecho
     const yc = H / 2;
     marco.setAttribute('transform', `translate(${f2(xc)} ${f2(yc)}) scale(${s.toFixed(4)}) translate(${-O.x} ${-O.y})`);
-    document.body.classList.toggle('sin-dial', xc + 68 * s < 24);
+    document.body.classList.toggle('sin-dial', xc + 68 * s < 90);
     paso = pasos.children[1] ? pasos.children[1].offsetTop - pasos.children[0].offsetTop : 1;
   }
 
